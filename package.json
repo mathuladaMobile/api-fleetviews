@@ -1,0 +1,33 @@
+{
+  "name": "api-fleetviews",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/mathuladaMobile/api-fleetviews#readme",
+  "bugs": {
+    "url": "https://github.com/mathuladaMobile/api-fleetviews/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathuladaMobile/api-fleetviews.git"
+  },
+  "author": "mobileinnovations",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "pm2-start": "pm2 start src/server.js --name api-fuelconversion",
+    "pm2-stop": "pm2 stop api-fuelconversion",
+    "pm2-restart": "pm2 restart api-fuelconversion",
+    "pm2-logs": "pm2 logs api-fuelconversion",
+    "pm2-monit": "pm2 monit"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "mssql": "^12.7.2"
+  }
+}
