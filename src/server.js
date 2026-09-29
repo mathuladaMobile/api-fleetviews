@@ -11,10 +11,12 @@ let dbStatus = "disconnected";
 async function startServer() {
   try {
     await mssqlConfig.connectMSSQL();
-    dbStatus = `Connected to MSSQL (${DB_DATABASE}) ✅`;
+    dbStatus = `Database : ${DB_DATABASE}`;
 
     app.listen(PORT, () => {
-      console.log(`Server running on port localhost:${PORT} 🚀`);
+      console.log(`Server   : localhost:5001`);
+      console.log("Status   : Running 🟢");
+      console.log("────────────────────────────────\n");
     });
   } catch (error) {
     console.error("Error connecting to MSSQL:", error);

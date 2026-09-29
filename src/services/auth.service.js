@@ -1,20 +1,36 @@
 const bcrypt = require("bcrypt");
-const userService = require("./user.service");
+const { users } = require("../stores/users");
 
 exports.verifyPassword = async (username, password) => {
-  const user = await userService.getUserByUsername(username);
+  const user = users.find((u) => u.name === username);
   if (!user) {
-    throw new Error("User not found");
+    throw new Error(`User not found: ${username}`);
   }
-
   const isMatch = await bcrypt.compare(password, user.password_hash);
 
-  const userData = {
-    id: user.id,
-    username: user.username,
-    company_code: user.company_code,
-    company_name: company ? company.name : null,
-  };
+  if (!isMatch) {
+    throw new Error("Invalid password");
+  } else {
+    return { isMatch, user: { id: user.id, username: user.name } };
+  }
+};
 
-  return { isMatch, user: userData };
+exports.registerUser = async (username, password) => {
+  // Check if the username already exists
+  const existingUser = users.find((u) => u.name === username);
+  if (existingUser) {
+    throw new Error("Username already exists");
+  }
+
+  // Hash the password
+  const saltRounds = 10;
+  const password_hash = await bcrypt.hash(password, saltRounds);
+  // Create the new user
+  const newUser = {
+    id: users.length + 1,
+    name: username,
+    password_hash,
+  };
+  users.push(newUser);
+  return { id: newUser.id, username: newUser.name };
 };

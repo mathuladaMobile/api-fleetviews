@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const { getUserByUsername } = require("../services/user.service");
+const { users } = require("../stores/users");
 
 module.exports = async (req, res, next) => {
   try {
@@ -43,23 +43,13 @@ module.exports = async (req, res, next) => {
       });
     }
 
-    // Get user from DB
-    const user = await getUserByUsername(username);
+    const user = users.find((u) => u.name === username);
 
     if (!user) {
       return res.status(401).json({
         success: false,
         message: "Invalid username or password",
         code: "INVALID_CREDENTIALS",
-      });
-    }
-
-    // Check active status
-    if (!user.is_active) {
-      return res.status(403).json({
-        success: false,
-        message: "User is inactive",
-        code: "USER_INACTIVE",
       });
     }
 
@@ -77,7 +67,7 @@ module.exports = async (req, res, next) => {
     // Attach user to request
     req.user = {
       id: user.id,
-      username: user.username,
+      username: user.name,
     };
 
     next();

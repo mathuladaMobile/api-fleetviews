@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
-const { version } = require("../package.json");
+const { version, name } = require("../package.json");
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.get("/", (req, res) => res.redirect(`/api/v1`));
 app.get("/api/v1", (req, res) => {
   res.json({
     success: true,
-    message: "Fuel Conversion API v1",
+    message: `${name} v1`,
     version: version || "1.0.0",
     status: "OK",
     timestamp: new Date().toISOString(),

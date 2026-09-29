@@ -1,12 +1,6 @@
 const sql = require("mssql");
 
-const {
-  DB_HOST,
-  DB_USER,
-  DB_PASSWORD,
-  DB_DATABASE,
-  DB_PORT,
-} = process.env;
+const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT } = process.env;
 
 const databaseConfig = {
   server: DB_HOST,
@@ -35,8 +29,8 @@ const pool = new sql.ConnectionPool(databaseConfig);
 const connectMSSQL = async () => {
   try {
     await pool.connect();
-
-    console.log("✅ MSSQL Connected");
+    console.log("────────────────────────────────");
+    console.log("Database : MSSQL Connected ✅");
   } catch (err) {
     console.log("DB_HOST", DB_HOST ? `${DB_HOST} ✅` : "not set ❌");
     console.log("DB_USER", DB_USER ? `${DB_USER} ✅` : "not set ❌");
