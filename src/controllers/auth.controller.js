@@ -9,13 +9,10 @@ exports.verifyPassword = async (req, res) => {
         message: "username and password are required",
       });
     }
-    const { isMatch, user } = await authService.verifyPassword(
-      username,
-      password,
-    );
+    const { user } = await authService.verifyPassword(username, password);
     res.status(200).json({
       success: true,
-      data: { isMatch, user },
+      data: user,
     });
   } catch (error) {
     console.error("Error verifying password:", error);

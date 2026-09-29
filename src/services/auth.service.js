@@ -11,7 +11,7 @@ exports.verifyPassword = async (username, password) => {
   if (!isMatch) {
     throw new Error("Invalid password");
   } else {
-    return { isMatch, user: { id: user.id, username: user.name } };
+    return { user: { id: user.id, username: user.name } };
   }
 };
 
@@ -19,7 +19,7 @@ exports.registerUser = async (username, password) => {
   // Check if the username already exists
   const existingUser = users.find((u) => u.name === username);
   if (existingUser) {
-    throw new Error("Username already exists");
+    throw new Error(`Username:[${username}] is already exists`);
   }
 
   // Hash the password
@@ -32,5 +32,5 @@ exports.registerUser = async (username, password) => {
     password_hash,
   };
   users.push(newUser);
-  return { id: newUser.id, username: newUser.name };
+  return newUser;
 };
