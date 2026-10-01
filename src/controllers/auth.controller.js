@@ -23,7 +23,7 @@ exports.verifyPassword = async (req, res) => {
   }
 };
 
-exports.registerUser = async (req, res) => {
+exports.generateUser = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -32,16 +32,17 @@ exports.registerUser = async (req, res) => {
         message: "username and password are required",
       });
     }
-    const user = await authService.registerUser(username, password);
+    const user = await authService.generateUser(username, password);
 
     // For now, we'll just return a success message
     res.status(201).json({
       success: true,
-      message: "User registered successfully",
-      data: { user },
+      message:
+        "User generated successfully, but not saved to the database. please add it manually to stores/users.js.",
+      data: user,
     });
   } catch (error) {
-    console.error("Error registering user:", error);
+    console.error("Error generating user:", error);
     res.status(500).json({
       success: false,
       message: error.message || "Internal server error",

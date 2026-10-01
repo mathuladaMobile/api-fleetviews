@@ -15,7 +15,7 @@ exports.verifyPassword = async (username, password) => {
   }
 };
 
-exports.registerUser = async (username, password) => {
+exports.generateUser = async (username, password) => {
   // Check if the username already exists
   const existingUser = users.find((u) => u.name === username);
   if (existingUser) {
@@ -31,6 +31,5 @@ exports.registerUser = async (username, password) => {
     name: username,
     password_hash,
   };
-  users.push(newUser);
   return newUser;
 };
