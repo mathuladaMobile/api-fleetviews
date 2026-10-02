@@ -21,7 +21,8 @@
     "pm2-stop": "pm2 stop api-fuelconversion",
     "pm2-restart": "pm2 restart api-fuelconversion",
     "pm2-logs": "pm2 logs api-fuelconversion",
-    "pm2-monit": "pm2 monit"
+    "pm2-monit": "pm2 monit",
+    "build": "echo \"No build step required\""
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -29,5 +30,8 @@
     "dotenv": "^18.0.3",
     "express": "^5.2.1",
     "mssql": "^12.7.2"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10"
   }
 }

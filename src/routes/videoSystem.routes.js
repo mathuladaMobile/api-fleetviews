@@ -3,6 +3,6 @@ const router = express.Router();
 
 const controller = require("../controllers/videoSystem.controller");
 
-router.get("", controller.getVideoSystem);
+router.get("/:id", controller.getVideoSystem);
 
 module.exports = router;

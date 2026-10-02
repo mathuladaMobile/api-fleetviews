@@ -2,20 +2,7 @@ const service = require("../services/videoSystem.service");
 
 exports.getVideoSystem = async (req, res) => {
   try {
-    if (
-      !req.body ||
-      !req.body.Username ||
-      !req.body.Password ||
-      !req.body.ApiToken
-    ) {
-      return res.status(400).json({
-        success: false,
-        message:
-          "Missing required parameters: Username, Password, and ApiToken",
-      });
-    }
-
-    const videoSystem = await service.getVideoSystem(req.body);
+    const videoSystem = await service.getVideoSystem(req.query);
 
     if (!videoSystem) {
       return res.status(404).json({

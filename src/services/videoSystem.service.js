@@ -1,19 +1,21 @@
 const { query } = require("../config/mssqlConfig");
 
-exports.getVideoSystem = async (body) => {
+exports.getVideoSystem = async (headers) => {
   try {
-    const { Username, Password, ApiToken } = body;
+    const { id } = headers;
+
+    if (!username || !password) {
+      throw new Error("Missing required header: username and password");
+    }
 
     const sql = `
       SELECT *
       FROM VideoSystem
-      WHERE Username = @Username AND Password = @Password AND ApiToken = @ApiToken
+      WHERE id = @VideoSystemId 
     `;
 
     const rows = await query(sql, {
-      Username: Username,
-      Password: Password,
-      ApiToken: ApiToken,
+      id: id,
     });
 
     return rows[0] || null;
