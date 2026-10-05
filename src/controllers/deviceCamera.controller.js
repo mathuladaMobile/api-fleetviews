@@ -2,7 +2,6 @@ const deviceCameraService = require("../services/deviceCamera.service");
 
 exports.getDeviceCamera = async (req, res) => {
   try {
-    console.log("Request headers:", req.headers); // Log the request headers for debugging
     const deviceCamera = await deviceCameraService.getDeviceCamera(req.headers);
     if (!deviceCamera) {
       return res.status(404).json({
