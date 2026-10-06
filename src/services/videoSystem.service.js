@@ -42,8 +42,12 @@ exports.updateVideoSystem = async (id, updateData) => {
     }
 
     if (ApiTokenExpire !== undefined) {
+      const expireDate = new Date(Number(ApiTokenExpire));
+      if (Number.isNaN(expireDate.getTime())) {
+        throw new Error("Invalid ApiTokenExpire");
+      }
       fields.push("ApiTokenExpire = @ApiTokenExpire");
-      params.ApiTokenExpire = ApiTokenExpire;
+      params.ApiTokenExpire = expireDate;
     }
 
     if (Username !== undefined) {
