@@ -66,18 +66,11 @@ exports.updateVideoSystem = async (id, updateData) => {
       WHERE VideoSystemId = @id;
     `;
 
-    const result = await query(sql, params);
-
-    if (result.rowsAffected[0] === 0) {
-      return null;
-    }
+    await query(sql, params);
 
     return {
       id,
-      ApiToken,
-      ApiTokenExpire,
-      Username,
-      Password,
+      ...updateData,
     };
   } catch (error) {
     console.error("Error updating video system in database:", error);

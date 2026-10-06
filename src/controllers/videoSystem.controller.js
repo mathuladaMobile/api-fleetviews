@@ -56,6 +56,7 @@ exports.updateVideoSystem = async (req, res) => {
     }
     res.status(200).json({
       success: true,
+      message: "Video system updated successfully",
       data: updatedVideoSystem,
     });
   } catch (error) {
