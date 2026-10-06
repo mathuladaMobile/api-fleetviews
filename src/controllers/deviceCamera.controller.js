@@ -2,11 +2,14 @@ const deviceCameraService = require("../services/deviceCamera.service");
 
 exports.getDeviceCamera = async (req, res) => {
   try {
-    const deviceCamera = await deviceCameraService.getDeviceCamera(req.headers);
+    const { serialno } = req.headers;
+
+    const deviceCamera = await deviceCameraService.getDeviceCamera(serialno);
     if (!deviceCamera) {
       return res.status(404).json({
         success: false,
         message: "Device camera not found",
+        data: { serialno },
       });
     }
     res.status(200).json({

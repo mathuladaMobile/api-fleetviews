@@ -1,21 +1,19 @@
 const { query } = require("../config/mssqlConfig");
 
-exports.getDeviceCamera = async (headers) => {
+exports.getDeviceCamera = async (serialno) => {
   try {
-    const { serialno, token } = headers;
-    if (!serialno || !token) {
-      throw new Error("Missing required header: serialno and token");
+    if (!serialno) {
+      throw new Error("Missing required parameter: serialno");
     }
 
     const sql = `
       SELECT *
       FROM DeviceCamera
-      WHERE SerialNo = @SerialNo AND Token = @Token
+      WHERE SerialNo = @SerialNo
     `;
 
     const rows = await query(sql, {
       SerialNo: serialno,
-      Token: token,
     });
 
     return rows[0] || null;
