@@ -11,16 +11,6 @@ exports.getVideoSystem = async (req, res) => {
       });
     }
 
-    if (
-      videoSystem.ApiTokenExpire &&
-      new Date(videoSystem.ApiTokenExpire) < new Date()
-    ) {
-      return res.status(401).json({
-        success: false,
-        message: "ApiToken has expired",
-      });
-    }
-
     res.status(200).json({
       success: true,
       data: videoSystem,

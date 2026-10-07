@@ -22,3 +22,23 @@ exports.getDeviceCamera = async (serialno) => {
     throw error;
   }
 };
+
+exports.checkTokenInDeviceCamera = async (token) => {
+  try {
+    if (!token) {
+      throw new Error("Missing required parameter: token");
+    }
+    const sql = `
+      SELECT *
+      FROM DeviceCamera
+      WHERE Token = @Token
+    `;
+    const rows = await query(sql, {
+      Token: token,
+    });
+    return rows[0] || null;
+  } catch (error) {
+    console.error("Error checking token in deviceCamera from database:", error);
+    throw error;
+  }
+};

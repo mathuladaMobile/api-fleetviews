@@ -24,3 +24,29 @@ exports.getDeviceCamera = async (req, res) => {
     });
   }
 };
+
+exports.checkTokenInDeviceCamera = async (req, res) => {
+  try {
+    const { token } = req.headers;
+    const deviceCamera =
+      await deviceCameraService.checkTokenInDeviceCamera(token);
+    if (!deviceCamera) {
+      return res.status(404).json({
+        success: false,
+        message: "Token not found in device camera",
+        data: { token },
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Token found in device camera",
+      data: deviceCamera,
+    });
+  } catch (error) {
+    console.error("Error checking token in device camera:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message || "Internal server error",
+    });
+  }
+};
