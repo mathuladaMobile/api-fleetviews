@@ -33,14 +33,13 @@ exports.checkTokenInDeviceCamera = async (req, res) => {
     if (!deviceCamera) {
       return res.status(404).json({
         success: false,
-        message: "Token not found in device camera",
+        message: "Token is not valid or device camera not found",
         data: { token },
       });
     }
     res.status(200).json({
       success: true,
-      message: "Token found in device camera",
-      data: deviceCamera,
+      message: "Token is valid!",
     });
   } catch (error) {
     console.error("Error checking token in device camera:", error);
